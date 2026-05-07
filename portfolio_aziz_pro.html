@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Maalej Mohamed Aziz — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#09090b;
+  --surface:#111113;
+  --card:#18181b;
+  --card2:#1c1c1f;
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.12);
+  --text:#fafafa;
+  --muted:#a1a1aa;
+  --dim:#71717a;
+  --green:#22c55e;
+  --blue:#3b82f6;
+  --purple:#a855f7;
+  --amber:#f59e0b;
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* NOISE TEXTURE */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%}
+.nav-wrap{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:68px;border-bottom:1px solid var(--border)}
+.logo{font-weight:800;font-size:1.1rem;letter-spacing:-0.5px;color:var(--text)}
+.logo em{font-style:normal;color:var(--green)}
+.nav-links{display:flex;gap:2px;list-style:none}
+.nav-links a{padding:7px 14px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:500;transition:all .18s;letter-spacing:.1px}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-status{display:flex;align-items:center;gap:7px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);padding:6px 14px;border-radius:50px;font-size:12.5px;font-weight:600;color:var(--green)}
+.nav-status span{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.nav-cv{background:var(--text);color:var(--bg);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .2s;letter-spacing:-.2px}
+.nav-cv:hover{opacity:.85}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:68px 5% 0;position:relative}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(59,130,246,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center}
+.hero-left{}
+.availability{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);background:rgba(255,255,255,0.03);padding:7px 16px;border-radius:50px;font-size:12.5px;color:var(--muted);margin-bottom:28px;font-weight:500}
+.availability i{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+h1{font-size:clamp(2.8rem,5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-2.5px;margin-bottom:20px}
+h1 .line2{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.25)}
+.hero-role{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.role-badge{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:#93c5fd;padding:5px 14px;border-radius:50px;font-size:12.5px;font-weight:600}
+.role-sep{color:var(--dim);font-size:12px}
+.hero-desc{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.85;margin-bottom:36px;font-weight:400}
+.hero-actions{display:flex;gap:12px;margin-bottom:48px}
+.btn-primary{background:var(--text);color:var(--bg);padding:13px 30px;border-radius:50px;font-weight:700;text-decoration:none;font-size:14px;letter-spacing:-.3px;transition:opacity .2s}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{border:1px solid var(--border2);color:var(--text);padding:12px 28px;border-radius:50px;font-weight:500;text-decoration:none;font-size:14px;transition:background .2s,border-color .2s}
+.btn-secondary:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.2)}
+.hero-stats{display:flex;gap:32px}
+.hstat{border-left:1px solid var(--border);padding-left:20px}
+.hstat .n{font-size:1.6rem;font-weight:800;letter-spacing:-1px;color:var(--text)}
+.hstat .l{font-size:12px;color:var(--dim);margin-top:2px;font-weight:500}
+
+/* HERO RIGHT — CARD */
+.hero-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:28px;position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent)}
+.hc-header{display:flex;align-items:center;gap:14px;padding-bottom:22px;border-bottom:1px solid var(--border);margin-bottom:22px}
+.hc-avatar{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(168,85,247,0.3));border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:var(--text)}
+.hc-name{font-weight:700;font-size:.95rem;letter-spacing:-.3px}
+.hc-sub{font-size:12.5px;color:var(--muted);margin-top:3px}
+.hc-badge{margin-left:auto;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--green);padding:4px 12px;border-radius:50px;font-size:11.5px;font-weight:600}
+.hc-section{margin-bottom:20px}
+.hc-label{font-size:11px;color:var(--dim);font-weight:600;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
+.hc-techs{display:flex;flex-wrap:wrap;gap:7px}
+.hc-tech{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:5px 13px;border-radius:8px;font-size:12.5px;color:var(--muted);font-weight:500;transition:border-color .2s,color .2s}
+.hc-tech:hover{border-color:var(--border2);color:var(--text)}
+.hc-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hc-bar-label{font-size:13px;color:var(--muted);width:90px;flex-shrink:0;font-weight:500}
+.hc-bar-track{flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:50px;overflow:hidden}
+.hc-bar-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.hc-bar-pct{font-size:12px;color:var(--dim);width:32px;text-align:right;font-weight:600}
+
+/* SECTIONS SHARED */
+section{padding:96px 5%;position:relative}
+.inner{max-width:1140px;margin:0 auto}
+.sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow-line{width:28px;height:1.5px;background:var(--blue)}
+.eyebrow-txt{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue)}
+h2{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-1.5px;margin-bottom:8px;line-height:1.2}
+.sec-sub{color:var(--muted);font-size:.95rem;margin-bottom:50px;max-width:520px;line-height:1.8}
+
+/* ABOUT */
+#about{background:var(--surface)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about-body p{color:var(--muted);font-size:.95rem;line-height:1.9;margin-bottom:18px}
+.about-meta{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meta-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.meta-ico{font-size:16px;width:32px;text-align:center}
+.meta-txt .lbl{font-size:10.5px;color:var(--dim);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.meta-txt .val{font-size:13.5px;font-weight:600;color:var(--text);margin-top:2px}
+.about-right{}
+.soft-skills-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.soft-tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px}
+.soft-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:7px 16px;border-radius:9px;font-size:13px;color:var(--muted);font-weight:500}
+.lang-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px}
+.lang-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.lang-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.lang-row:last-child{border:none}
+.lang-name{font-size:14px;font-weight:600;color:var(--text)}
+.lang-level{font-size:12px;color:var(--muted);background:rgba(255,255,255,0.05);padding:3px 10px;border-radius:50px;font-weight:500}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
+.pcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,0.03),rgba(168,85,247,0.03));opacity:0;transition:opacity .3s}
+.pcard:hover{border-color:rgba(255,255,255,0.15);transform:translateY(-4px)}
+.pcard:hover::after{opacity:1}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.p-icon{width:46px;height:46px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--card2)}
+.p-num{font-size:12px;color:var(--dim);font-weight:600;letter-spacing:.5px}
+.p-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.3px}
+.p-desc{font-size:13.5px;color:var(--muted);line-height:1.75;margin-bottom:20px}
+.p-stack{display:flex;flex-wrap:wrap;gap:7px}
+.p-tag{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);color:#93c5fd;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600}
+
+/* EXPERIENCE */
+#experience{background:var(--surface)}
+.exp-grid{display:flex;flex-direction:column;gap:16px}
+.ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;transition:border-color .2s}
+.ecard:hover{border-color:var(--border2)}
+.e-role{font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.4px;margin-bottom:4px}
+.e-company{font-size:13.5px;color:var(--blue);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.e-dot{width:4px;height:4px;border-radius:50%;background:var(--dim);display:inline-block}
+.e-place{color:var(--dim)}
+.e-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px}
+.e-list li{font-size:13.5px;color:var(--muted);padding-left:18px;position:relative;line-height:1.65}
+.e-list li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:1.5px;background:var(--blue)}
+.e-period{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:7px 16px;border-radius:50px;font-size:12.5px;color:var(--muted);white-space:nowrap;font-weight:600;height:fit-content}
+
+/* SKILLS */
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.sc-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sc-ico{font-size:18px}
+.sc-title{font-size:.85rem;font-weight:700;color:var(--text);letter-spacing:.2px}
+.sc-tags{display:flex;flex-wrap:wrap;gap:8px}
+.sc-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:5px 13px;border-radius:7px;font-size:12.5px;color:var(--muted);font-weight:500;transition:border-color .15s,color .15s}
+.sc-tag:hover{border-color:var(--border2);color:var(--text)}
+
+/* CERTIFICATES */
+#certificates{background:var(--surface)}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.ccert{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;display:flex;align-items:center;gap:16px;transition:border-color .2s,transform .2s}
+.ccert:hover{border-color:var(--border2);transform:translateY(-3px)}
+.ccert-ico{width:44px;height:44px;min-width:44px;border-radius:12px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:19px}
+.ccert-name{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.4}
+.ccert-by{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+
+/* CONTACT */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.contact-left h3{font-size:1.3rem;font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+.contact-left p{color:var(--muted);font-size:.95rem;line-height:1.85;margin-bottom:32px}
+.clinks{display:flex;flex-direction:column;gap:10px}
+.clink{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 18px;text-decoration:none;color:var(--text);transition:border-color .2s}
+.clink:hover{border-color:var(--border2)}
+.clink-ico{width:38px;height:38px;min-width:38px;border-radius:10px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px}
+.clink-lbl{font-size:11px;color:var(--dim);font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.clink-val{font-size:13.5px;font-weight:600;margin-top:2px}
+.cform{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px}
+.cform h3{font-size:1rem;font-weight:700;letter-spacing:-.3px;margin-bottom:22px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.fg input,.fg textarea{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.fg input:focus,.fg textarea:focus{border-color:rgba(59,130,246,0.5)}
+.fg textarea{min-height:110px;resize:none}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--dim)}
+.btn-send{width:100%;background:var(--text);color:var(--bg);border:none;padding:13px;border-radius:50px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:-.2px;transition:opacity .2s}
+.btn-send:hover{opacity:.85}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px 5%;text-align:center}
+footer p{color:var(--dim);font-size:13px}
+footer strong{color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner,.about-layout,.contact-layout{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .ecard{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links,.nav-status,.nav-cv{display:none}
+  .hamburger{display:block}
+  section{padding:72px 5%}
+  h2{font-size:1.8rem}
+  .hero-stats{gap:20px}
+  .about-meta,.meta-item{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-wrap">
+    <div class="logo">aziz<em>.dev</em></div>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#experience">Expérience</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#certificates">Certificats</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-status"><span></span>Disponible</div>
+      <a href="CV_Maalej_Mohamed_Aziz.pdf" class="nav-cv" download>CV ↓</a>
+    </div>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').style.display='flex'">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="availability"><i></i>Disponible pour stage / alternance</div>
+      <h1>Maalej<br/><span class="line2">Mohamed Aziz</span></h1>
+      <div class="hero-role">
+        <span class="role-badge">Étudiant Ingénieur — IIT</span>
+        <span class="role-sep">·</span>
+        <span style="color:var(--muted);font-size:14px;font-weight:500">Full-Stack Developer</span>
+      </div>
+      <p class="hero-desc">Passionné par le développement web full-stack et la conception de solutions logicielles modernes. Je transforme des idées en applications web concrètes, performantes et bien architecturées.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">Voir mes projets →</a>
+        <a href="#contact" class="btn-secondary">Me contacter</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n">2+</div><div class="l">Ans d'expérience</div></div>
+        <div class="hstat"><div class="n">5+</div><div class="l">Projets réalisés</div></div>
+        <div class="hstat"><div class="n">10+</div><div class="l">Technologies</div></div>
+        <div class="hstat"><div class="n">4</div><div class="l">Certificats</div></div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hc-header">
+        <div class="hc-avatar">MA</div>
+        <div>
+          <div class="hc-name">Maalej Mohamed Aziz</div>
+          <div class="hc-sub">Étudiant ingénieur · IIT Sfax</div>
+        </div>
+        <div class="hc-badge">● Dispo</div>
+      </div>
+
+      <div class="hc-section">
+        <div class="hc-label">Stack principal</div>
+        <div class="hc-techs">
+          <span class="hc-tech">Angular</span><span class="hc-tech">Laravel</span>
+          <span class="hc-tech">Django</span><span class="hc-tech">Spring Boot</span>
+          <span class="hc-tech">React</span><span class="hc-tech">Flutter</span>
+          <span class="hc-tech">MySQL</span><span class="hc-tech">Java</span>
+        </div>
+      </div>
+
+      <div class="hc-section">
+        <div class="hc-label">Niveau de maîtrise</div>
+        <div class="hc-bar-row"><div class="hc-bar-label">Front-end</div><div class="hc-bar-track"><div class="hc-bar-fill" style="width:85%"></div></div><div class="hc-bar-pct">85%</div></div>
+        <div class="hc-bar-row"><div class="hc-bar-label">Back-end</div><div class="hc-bar-track"><div class="hc-bar-fill" style="width:80%"></div></div><div class="hc-bar-pct">80%</div></div>
+        <div class="hc-bar-row"><div class="hc-bar-label">Base de données</div><div class="hc-bar-track"><div class="hc-bar-fill" style="width:78%"></div></div><div class="hc-bar-pct">78%</div></div>
+        <div class="hc-bar-row"><div class="hc-bar-label">UI / Design</div><div class="hc-bar-track"><div class="hc-bar-fill" style="width:70%"></div></div><div class="hc-bar-pct">70%</div></div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:12px;color:var(--dim)">📍 Sfax, Tunisie</div>
+        <div style="font-size:12px;color:var(--dim)">📧 aziz.maalej4@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">À propos</span></div>
+    <h2>Qui suis-je ?</h2>
+    <p class="sec-sub">Mon parcours, mes valeurs et ma vision du développement logiciel.</p>
+    <div class="about-layout">
+      <div class="about-body">
+        <p>Étudiant en 1ère année cycle ingénieur en génie informatique à l'Institut International de Technologie, je suis passionné par le développement web full-stack et la conception de solutions logicielles modernes.</p>
+        <p>Au fil de mes expériences académiques et professionnelles, j'ai développé des compétences solides en développement front-end et back-end, en gestion de bases de données et en conception d'architectures logicielles.</p>
+        <p>Curieux, rigoureux et orienté résultats, j'aime transformer des idées en applications web concrètes et performantes. Mon objectif est de continuer à évoluer dans un environnement technique stimulant, en contribuant activement à des projets innovants au sein d'équipes dynamiques.</p>
+        <div class="about-meta">
+          <div class="meta-item"><div class="meta-ico">🎓</div><div class="meta-txt"><div class="lbl">Formation</div><div class="val">Cycle Ingénieur — IIT</div></div></div>
+          <div class="meta-item"><div class="meta-ico">📍</div><div class="meta-txt"><div class="lbl">Localisation</div><div class="val">Sfax, Tunisie</div></div></div>
+          <div class="meta-item"><div class="meta-ico">💼</div><div class="meta-txt"><div class="lbl">Statut</div><div class="val">Disponible</div></div></div>
+          <div class="meta-item"><div class="meta-ico">🏆</div><div class="meta-txt"><div class="lbl">Accomplissement</div><div class="val">Parmi les meilleurs</div></div></div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="soft-skills-title">Soft Skills</div>
+        <div class="soft-tags">
+          <span class="soft-tag">Polyvalent</span><span class="soft-tag">Créatif</span>
+          <span class="soft-tag">Organisé</span><span class="soft-tag">Sociable</span>
+          <span class="soft-tag">Apprentissage rapide</span>
+          <span class="soft-tag">Gestion du stress</span>
+          <span class="soft-tag">Travail en équipe</span>
+        </div>
+        <div class="lang-card">
+          <div class="lang-title">Langues</div>
+          <div class="lang-row"><span class="lang-name">Arabe</span><span class="lang-level">Natif</span></div>
+          <div class="lang-row"><span class="lang-name">Français</span><span class="lang-level">Courant</span></div>
+          <div class="lang-row"><span class="lang-name">Anglais</span><span class="lang-level">Intermédiaire</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--surface)">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Projets</span></div>
+    <h2>Mes réalisations</h2>
+    <p class="sec-sub">Applications web conçues et développées dans un cadre académique et professionnel.</p>
+    <div class="proj-grid">
+
+      <div class="pcard">
+        <div class="p-top"><div class="p-icon">🚚</div><div class="p-num">01</div></div>
+        <div class="p-title">Application Web de Gestion Logistique</div>
+        <p class="p-desc">Application complète pour automatiser la gestion des demandes, livraisons, missions et suivi des trajets. Développée lors du stage chez OPTIMALOGISTIC.</p>
+        <div class="p-stack"><span class="p-tag">Django</span><span class="p-tag">Angular</span><span class="p-tag">MySQL</span><span class="p-tag">REST API</span></div>
+      </div>
+
+      <div class="pcard">
+        <div class="p-top"><div class="p-icon">👥</div><div class="p-num">02</div></div>
+        <div class="p-title">Plateforme RH — Gestion des Ressources Humaines</div>
+        <p class="p-desc">Plateforme complète : gestion des employés, congés, présences, performances avec rôles et permissions. Projet de fin d'études chez ALL SOFT MULTIMEDIA.</p>
+        <div class="p-stack"><span class="p-tag">Angular</span><span class="p-tag">Laravel</span><span class="p-tag">MySQL</span><span class="p-tag">UML</span></div>
+      </div>
+
+      <div class="pcard">
+        <div class="p-top"><div class="p-icon">🏙️</div><div class="p-num">03</div></div>
+        <div class="p-title">Découverte des Villes de Tunisie</div>
+        <p class="p-desc">Plateforme élégante offrant une expérience immersive pour découvrir les villes tunisiennes. Interface soignée et entièrement responsive.</p>
+        <div class="p-stack"><span class="p-tag">HTML5</span><span class="p-tag">CSS3</span><span class="p-tag">JavaScript</span></div>
+      </div>
+
+      <div class="pcard">
+        <div class="p-top"><div class="p-icon">🏨</div><div class="p-num">04</div></div>
+        <div class="p-title">Site Web de Réservation d'Hôtel</div>
+        <p class="p-desc">Application de réservation avec gestion des rôles (visiteur, client, admin), validation des réservations et architecture MVC propre.</p>
+        <div class="p-stack"><span class="p-tag">PHP</span><span class="p-tag">CakePHP4</span><span class="p-tag">SQL Server</span><span class="p-tag">MVC</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Expérience</span></div>
+    <h2>Parcours professionnel</h2>
+    <p class="sec-sub">Stages et expériences qui ont forgé mes compétences techniques.</p>
+    <div class="exp-grid">
+
+      <div class="ecard">
+        <div>
+          <div class="e-role">Développeur Full-Stack — Stage PFE</div>
+          <div class="e-company">OPTIMALOGISTIC <span class="e-dot"></span> <span class="e-place">Sfax, Tunisie</span></div>
+          <ul class="e-list">
+            <li>Participation au développement d'une application web de gestion logistique avec Django, MySQL et Angular.</li>
+            <li>Conception et développement du module de <strong style="color:var(--text)">création de demandes de livraison</strong> : formulaire de saisie, validation des données et enregistrement en base de données.</li>
+            <li>Mise en place du workflow de traitement des demandes : soumission → affectation → suivi → validation de livraison.</li>
+            <li>Développement de l'interface Angular pour la saisie et la consultation des demandes avec affichage dynamique du statut.</li>
+            <li>Création des endpoints REST côté Django pour la gestion des demandes (création, lecture, mise à jour du statut).</li>
+          </ul>
+        </div>
+        <div class="e-period">01/02 – 30/05/2025</div>
+      </div>
+
+      <div class="ecard">
+        <div>
+          <div class="e-role">Développeur Web — Stage</div>
+          <div class="e-company">INTERNET SOFT <span class="e-dot"></span> <span class="e-place">Sfax, Tunisie</span></div>
+          <ul class="e-list">
+            <li>Participation au développement d'un site web avec CakePHP4.</li>
+            <li>Conception et amélioration de l'interface utilisateur.</li>
+            <li>Gestion et optimisation de la base de données SQL Server.</li>
+          </ul>
+        </div>
+        <div class="e-period">01 – 31/08/2024</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--surface)">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Compétences</span></div>
+    <h2>Technologies maîtrisées</h2>
+    <p class="sec-sub">Mon arsenal technique pour concevoir des applications web modernes et robustes.</p>
+    <div class="sk-grid">
+      <div class="scard">
+        <div class="sc-head"><div class="sc-ico">💻</div><div class="sc-title">Langages de programmation</div></div>
+        <div class="sc-tags"><span class="sc-tag">Java</span><span class="sc-tag">JavaScript</span><span class="sc-tag">PHP</span><span class="sc-tag">C#</span><span class="sc-tag">PL/SQL</span><span class="sc-tag">HTML5</span><span class="sc-tag">CSS3</span><span class="sc-tag">.NET</span></div>
+      </div>
+      <div class="scard">
+        <div class="sc-head"><div class="sc-ico">⚙️</div><div class="sc-title">Frameworks & Librairies</div></div>
+        <div class="sc-tags"><span class="sc-tag">Angular</span><span class="sc-tag">Laravel</span><span class="sc-tag">Django</span><span class="sc-tag">Spring Boot</span><span class="sc-tag">React</span><span class="sc-tag">Flutter</span><span class="sc-tag">CakePHP4</span></div>
+      </div>
+      <div class="scard">
+        <div class="sc-head"><div class="sc-ico">🗄️</div><div class="sc-title">Bases de données</div></div>
+        <div class="sc-tags"><span class="sc-tag">MySQL</span><span class="sc-tag">SQL Server</span><span class="sc-tag">Oracle</span><span class="sc-tag">PL/SQL</span></div>
+      </div>
+      <div class="scard">
+        <div class="sc-head"><div class="sc-ico">🛠️</div><div class="sc-title">Outils & Méthodes</div></div>
+        <div class="sc-tags"><span class="sc-tag">Git</span><span class="sc-tag">GitHub</span><span class="sc-tag">UML</span><span class="sc-tag">Enterprise Architect</span><span class="sc-tag">FIGMA</span><span class="sc-tag">REST API</span><span class="sc-tag">SCRUM</span><span class="sc-tag">Linux</span><span class="sc-tag">POO</span><span class="sc-tag">BI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Certifications</span></div>
+    <h2>Mes certificats</h2>
+    <p class="sec-sub">Formations et certifications qui complètent mon parcours académique.</p>
+    <div class="cert-grid">
+      <div class="ccert"><div class="ccert-ico">🎯</div><div><div class="ccert-name">Marketing Digital</div><div class="ccert-by">Google</div></div></div>
+      <div class="ccert"><div class="ccert-ico">🔄</div><div><div class="ccert-name">Fondamentaux SCRUM</div><div class="ccert-by">Google</div></div></div>
+      <div class="ccert"><div class="ccert-ico">🛡️</div><div><div class="ccert-name">Career Essentials in Cybersecurity</div><div class="ccert-by">Microsoft & LinkedIn</div></div></div>
+      <div class="ccert"><div class="ccert-ico">🎨</div><div><div class="ccert-name">FIGMA — Design UI/UX</div><div class="ccert-by">Design Tool Certification</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--surface)">
+  <div class="inner">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Contact</span></div>
+    <h2>Travaillons ensemble</h2>
+    <p class="sec-sub">Disponible pour toute opportunité professionnelle, stage, alternance ou collaboration.</p>
+    <div class="contact-layout">
+      <div class="contact-left">
+        <h3>Une opportunité ?<br/>Écrivez-moi.</h3>
+        <p>Je suis ouvert à toute proposition sérieuse. Que ce soit pour un stage, une alternance ou un projet collaboratif, n'hésitez pas à me contacter directement.</p>
+        <div class="clinks">
+          <a href="mailto:aziz.maalej4@gmail.com" class="clink">
+            <div class="clink-ico">✉️</div>
+            <div><div class="clink-lbl">Email</div><div class="clink-val">aziz.maalej4@gmail.com</div></div>
+          </a>
+          <a href="tel:+21625087028" class="clink">
+            <div class="clink-ico">📞</div>
+            <div><div class="clink-lbl">Téléphone</div><div class="clink-val">+216 25 087 028</div></div>
+          </a>
+          <a href="https://linkedin.com/in/Mohamed-aziz-Maalej" target="_blank" class="clink">
+            <div class="clink-ico" style="font-size:13px;font-weight:800;color:#0a66c2">in</div>
+            <div><div class="clink-lbl">LinkedIn</div><div class="clink-val">Mohamed Aziz Maalej</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="cform">
+        <h3>Envoyer un message</h3>
+        <div class="fg"><label>Nom complet</label><input type="text" placeholder="Votre nom"/></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="votre@email.com"/></div>
+        <div class="fg"><label>Sujet</label><input type="text" placeholder="Objet du message"/></div>
+        <div class="fg"><label>Message</label><textarea placeholder="Décrivez votre projet ou opportunité..."></textarea></div>
+        <button class="btn-send">Envoyer →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <strong>Maalej Mohamed Aziz</strong> — Étudiant Ingénieur · Full-Stack Developer · Sfax, Tunisie</p>
+</footer>
+
+<script>
+const links = document.querySelectorAll('.nav-links a');
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 90) cur = s.id; });
+  links.forEach(a => a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--text)' : '');
+});
+</script>
+</body>
+</html>
